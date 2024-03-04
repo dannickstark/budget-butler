@@ -10,4 +10,6 @@
 </script>
 
 <button on:click={greet}>Greet me</button>
-<p>{greetMsg}</p>
+<h1 class="text-3xl font-bold underline">
+    {greetMsg}
+</h1>
