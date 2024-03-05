@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { Button } from '@/components/ui/button';
     import { Resource, invoke } from '@tauri-apps/api/core';
 
   let name = ''
@@ -9,7 +10,7 @@
   }
 </script>
 
-<button on:click={greet}>Greet me</button>
+<Button on:click={greet}>Greet me</Button>
 <h1 class="text-3xl font-bold underline">
     {greetMsg}
 </h1>
