@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@internationalized/date':
+    specifier: ^3.5.2
+    version: 3.5.2
   '@tauri-apps/api':
     specifier: 2.0.0-beta.3
     version: 2.0.0-beta.3
@@ -14,6 +17,12 @@ dependencies:
   clsx:
     specifier: ^2.1.0
     version: 2.1.0
+  lucide-svelte:
+    specifier: ^0.344.0
+    version: 0.344.0(svelte@5.0.0-next.70)
+  paneforge:
+    specifier: ^0.0.2
+    version: 0.0.2(svelte@5.0.0-next.70)
   svelte-radix:
     specifier: ^1.0.3
     version: 1.0.3(svelte@5.0.0-next.70)
@@ -1947,6 +1956,14 @@ packages:
       yallist: 4.0.0
     dev: true
 
+  /lucide-svelte@0.344.0(svelte@5.0.0-next.70):
+    resolution: {integrity: sha512-OB/iazftjl2w+vpH7WJqbhHONoMqUT6aaeYvu1BQSgvc7+CKXByu4xvbI7RMOJykaiF/u3LAhyd2ucYBj+rEZQ==}
+    peerDependencies:
+      svelte: ^3 || ^4 || ^5.0.0-next.42
+    dependencies:
+      svelte: 5.0.0-next.70
+    dev: false
+
   /magic-string@0.30.8:
     resolution: {integrity: sha512-ISQTe55T2ao7XtlAStud6qwYPZjE4GK1S/BeVPus4jrq6JuOnQ00YKQC581RWhR122W7msZV263KzVeLoqidyQ==}
     engines: {node: '>=12'}
@@ -2123,6 +2140,15 @@ packages:
     dependencies:
       p-limit: 3.1.0
     dev: true
+
+  /paneforge@0.0.2(svelte@5.0.0-next.70):
+    resolution: {integrity: sha512-1xNMq+uslstqum4D8CzzkPGqnTWUlevjYtMjUhuEOiuz7E0fJHFuM8ogk8+LJnVbAg3hMJJ/9Mu4A1KaxK38oQ==}
+    peerDependencies:
+      svelte: ^4.0.0
+    dependencies:
+      nanoid: 5.0.6
+      svelte: 5.0.0-next.70
+    dev: false
 
   /parent-module@1.0.1:
     resolution: {integrity: sha512-GQ2EWRpQV8/o+Aw8YqtfZZPfNRWZYkbidE9k5rpl/hC3vtHHBfGm2Ifi6qWV+coDGkrUKZAxE3Lot5kcsRlh+g==}
