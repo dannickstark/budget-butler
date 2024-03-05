@@ -52,7 +52,7 @@
 		class="hidden dark:block"
 	/>
 </div>
-<div class=" h-screen w-screen">
+<div class=" h-screen w-screen overflow-hidden">
 	<Resizable.PaneGroup
 		direction="horizontal"
 		{onLayoutChange}
