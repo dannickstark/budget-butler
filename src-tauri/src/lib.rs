@@ -1,10 +1,12 @@
 pub mod consts;
 pub mod db;
 pub mod ipc;
+pub mod prelude;
+pub mod utils;
 
 use core::result::Result::Ok;
 use db::set_up_surreal_db;
-use ipc::commands::{get_person, get_persons, greet};
+use ipc::commands::{get_person, get_persons, greet, create_person};
 
 use ipc::structures::error::Result;
 use std::sync::Arc;
@@ -16,7 +18,7 @@ pub async fn run() -> Result<()> {
 
     tauri::Builder::default()
         .manage(db)
-        .invoke_handler(tauri::generate_handler![greet, get_person, get_persons])
+        .invoke_handler(tauri::generate_handler![greet, get_person, get_persons, create_person])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 

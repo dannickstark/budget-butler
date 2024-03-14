@@ -1,51 +1,58 @@
 use serde::{Deserialize, Serialize};
 use surrealdb::{engine::local::Db, sql::Thing, Surreal};
-use crate::ipc::structures::error::{Error, Result};
+use crate::{db::crud::create, ipc::structures::error::{Error, Result}, utils::x_take::XTake};
+use surrealdb::sql::{Object, Value};
 
-#[derive(Debug, Serialize)]
-pub struct Name<'a> {
-    pub first: &'a str,
-    pub last: &'a str,
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct Person {
+	pub id: String,
+	pub name: String,
 }
 
-#[derive(Debug, Serialize)]
-pub struct Person<'a> {
-    pub title: &'a str,
-    pub name: Name<'a>,
-    pub marketing: bool,
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct NewPerson {
+	pub name: String,
 }
 
-impl<'a> Person<'a> {
-    pub async fn create(&self, db: &Surreal<Db>) -> Result<PersonRecord> {
-        let record: Vec<PersonRecord> = db.create("person").content(self).await?;
+impl TryFrom<Object> for Person {
+	type Error = Error;
+	fn try_from(mut val: Object) -> Result<Person> {
+		let project = Person {
+			id: val.x_take_val("id")?,
+			name: val.x_take_val("name")?
+		};
 
-        match record.into_iter().next() {
-            Some(data) => Ok(data),
-            None => Err(Error::Message("No record found".to_string())),
-        }
+		Ok(project)
+	}
+}
+
+impl Person {
+	const ENTITY: &'static str = "person";
+
+    pub async fn create(db: &Surreal<Db>, name: &str) -> Result<Person> {
+        create(db, Self::ENTITY, NewPerson {
+            name: String::from(name)
+        }).await
     }
 
-    pub async fn update(&self, db: &Surreal<Db>, id: &str) -> Result<Option<PersonRecord>> {
-        let record: Option<PersonRecord> = db.update(("person", id)).merge(self).await?;
+    pub async fn update(&self, db: &Surreal<Db>, id: &str) -> Result<Option<Person>> {
+        let record: Option<Person> = db.update(("person", id)).merge(self).await?;
         Ok(record)
     }
 
-    pub async fn select(db: &Surreal<Db>, id: &str) -> Result<PersonRecord> {
-        let record: Option<PersonRecord> = db.select(("person", id)).await?;
+    pub async fn select(db: &Surreal<Db>, id: &str) -> Result<Person> {
+        let record: Option<Person> = db.select(("person", id)).await?;
         match record {
             Some(data) => Ok(data),
             None => Err(Error::Message("No record found".to_string())),
         }
     }
 
-    pub async fn select_all(db: &Surreal<Db>) -> Result<Vec<PersonRecord>> {
-        let record: Vec<PersonRecord> = db.select("person").await?;
+    pub async fn select_all(db: &Surreal<Db>) -> Result<Vec<Person>> {
+        let record: Vec<Person> = db.select("person").await?;
         Ok(record)
     }
 }
 
-#[derive(Debug, Deserialize, Serialize)]
-pub struct PersonRecord {
-    #[allow(dead_code)]
-    pub id: Thing,
-}

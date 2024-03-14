@@ -15,9 +15,17 @@
 		person = await invoke('get_persons', { id });
 		console.log('--------->', person);
 	}
+
+	async function create_person() {
+		console.log('---------> create_person');
+		let name = 'dannick';
+		person = await invoke('create_person', { name });
+		console.log('--------->', person);
+	}
 </script>
 
-<Button on:click={get_persons}>Greet me</Button>
+<Button on:click={get_persons}>Get persons</Button>
+<Button on:click={create_person}>Create person</Button>
 <Mail
 	{accounts}
 	{mails}
