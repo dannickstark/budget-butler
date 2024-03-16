@@ -1,20 +1,36 @@
-pub mod auth;
-pub mod structures;
-pub mod x_take_impl;
-pub mod crud;
+use std::fs;
+use std::path::Path;
 
-use surrealdb::engine::local::{Mem, Db};
-use surrealdb::Surreal;
+// Check if a database file exists, and create one if it does not.
+pub fn init() {
+    if !db_file_exists() {
+        create_db_file();
+    }
+}
 
-use crate::ipc::structures::error::Result;
+// Create the database file.
+fn create_db_file() {
+    let db_path = get_db_path();
+    let db_dir = Path::new(&db_path).parent().unwrap();
 
-pub async fn set_up_surreal_db() -> Result<Surreal<Db>> {
-    // Create database connection
-    let db: Surreal<Db> = Surreal::new::<Mem>(()).await?;
+    // If the parent directory does not exist, create it.
+    if !db_dir.exists() {
+        fs::create_dir_all(db_dir).unwrap();
+    }
 
-    // Select a specific namespace / database
-    db.use_ns(crate::consts::auth::NAMESPACE)
-        .use_db(crate::consts::auth::DATABASE)
-        .await?;
-    Ok(db)
+    // Create the database file.
+    fs::File::create(db_path).unwrap();
+}
+
+// Check whether the database file exists.
+fn db_file_exists() -> bool {
+    let db_path = get_db_path();
+    Path::new(&db_path).exists()
+}
+
+// Get the path where the database file should be located.
+fn get_db_path() -> String {
+    //let home_dir = dirs::home_dir().unwrap();
+    //home_dir.to_str().unwrap().to_string() + "/.config/budget-butler/database.sqlite"
+    String::from("database.db")
 }

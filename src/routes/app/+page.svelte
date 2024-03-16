@@ -7,25 +7,46 @@
 	import { Resource, invoke } from '@tauri-apps/api/core';
 	import { onMount } from 'svelte';
 
-	let person: any = undefined;
+	import Database from '@tauri-apps/plugin-sql';
+	import { appLocalDataDir } from '@tauri-apps/api/path';
 
-	async function get_persons() {
-		console.log('---------> get_persons');
-		let id = '';
-		person = await invoke('get_persons', { id });
-		console.log('--------->', person);
+	async function getDBPath(){
+		const appLocalDataDirPath = await appLocalDataDir();
+		return `${appLocalDataDirPath}/database.db`
 	}
 
-	async function create_person() {
-		console.log('---------> create_person');
-		let name = 'dannick';
-		person = await invoke('create_person', { name });
-		console.log('--------->', person);
+	async function loadDB(){
+		return await Database.load('sqlite:database.db');
+	}
+
+	async function get_todos() {
+		const db = await loadDB();
+
+		// INSERT and UPDATE examples for sqlite and postgres
+		const results = await db.execute('SELECT * FROM todos');
+		console.log("----------> results", results)
+	}
+
+	async function create_todo() {
+		const db = await loadDB();
+
+		let todos = {
+			id: "qwqwqwe",
+			title: "todo 1",
+			status: "active"
+		}
+
+		// INSERT and UPDATE examples for sqlite and postgres
+		const result = await db.execute('INSERT into todos (id, title, status) VALUES ($1, $2, $3)', [
+			todos.id,
+			todos.title,
+			todos.status
+		]);
 	}
 </script>
 
-<Button on:click={get_persons}>Get persons</Button>
-<Button on:click={create_person}>Create person</Button>
+<Button on:click={get_todos}>Get todos</Button>
+<Button on:click={create_todo}>Create todo</Button>
 <Mail
 	{accounts}
 	{mails}

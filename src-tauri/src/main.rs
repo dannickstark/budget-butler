@@ -2,7 +2,6 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 #![allow(unused)]
 
-#[tokio::main]
-async fn main() {
-  let _ = budget_butler::run().await;
+fn main() {
+    budget_butler::run();
 }
