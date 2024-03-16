@@ -1,8 +1,8 @@
 use serde::{Deserialize, Serialize};
-use surrealdb::{engine::local::Db, sql::Thing, Surreal};
+use surrealdb::{engine::local::Db, Surreal};
 use crate::{db::crud::create, ipc::structures::error::{Error, Result}, utils::x_take::XTake};
-use surrealdb::sql::{Object, Value};
-
+use surrealdb::sql::Object;
+ 
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Person {
