@@ -13,9 +13,28 @@
 		"menu:default",
 		"tray:default",
 
-    "sql:allow-load",
-    "sql:allow-close",
-    "sql:allow-execute",
-    "sql:allow-select"
+		"sql:allow-load",
+		"sql:allow-close",
+		"sql:allow-execute",
+		"sql:allow-select",
+
+		"fs:default",
+		"fs:allow-read-text-file",
+		"fs:allow-read-dir",
+		"fs:allow-read-file",
+		"fs:allow-write-file",
+		"fs:allow-create",
+		"fs:allow-remove",
+		"fs:allow-copy-file",
+		"fs:allow-rename",
+		{
+			"identifier": "fs:scope",
+			"allow": [
+				{ "path": "$APPDATA" },
+				{ "path": "$APPDATA/**" },
+				{ "path": "$RESOURCE" },
+				{ "path": "$RESOURCE/**" }
+			]
+		}
 	]
 }
