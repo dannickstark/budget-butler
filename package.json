@@ -15,7 +15,8 @@
 		"lint": "prettier --check . && eslint .",
 		"format": "prettier --write .",
 		"test:integration": "playwright test",
-		"test:unit": "vitest"
+		"test:unit": "vitest",
+		"migrate": "drizzle-kit generate:sqlite"
 	},
 	"devDependencies": {
 		"@playwright/test": "^1.28.1",
@@ -29,6 +30,7 @@
 		"@typescript-eslint/parser": "^7.0.0",
 		"autoprefixer": "^10.4.18",
 		"dotenv-load": "^3.0.0",
+		"drizzle-kit": "^0.20.14",
 		"eslint": "^8.56.0",
 		"eslint-config-prettier": "^9.1.0",
 		"eslint-plugin-svelte": "^2.36.0-next.4",
@@ -47,8 +49,11 @@
 	"dependencies": {
 		"@internationalized/date": "^3.5.2",
 		"@tauri-apps/api": "2.0.0-beta.3",
+		"@tauri-apps/plugin-fs": "2.0.0-beta.2",
+		"@tauri-apps/plugin-sql": "2.0.0-beta.2",
 		"bits-ui": "^0.19.3",
 		"clsx": "^2.1.0",
+		"drizzle-orm": "^0.30.2",
 		"lucide-svelte": "^0.344.0",
 		"paneforge": "^0.0.2",
 		"svelte-radix": "^1.0.3",
