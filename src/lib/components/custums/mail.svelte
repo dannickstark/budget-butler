@@ -36,27 +36,11 @@
 	}
 </script>
 
-<div class="md:hidden">
-	<img
-		src="/examples/mail-light.png"
-		width={1280}
-		height={1114}
-		alt="Mail"
-		class="block dark:hidden"
-	/>
-	<img
-		src="/examples/mail-dark.png"
-		width={1280}
-		height={1114}
-		alt="Mail"
-		class="hidden dark:block"
-	/>
-</div>
-<div class=" h-screen w-screen overflow-hidden">
+<div class="w-screen h-screen overflow-hidden ">
 	<Resizable.PaneGroup
 		direction="horizontal"
 		{onLayoutChange}
-		class="h-full items-stretch"
+		class="items-stretch h-full"
 	>
 		<Resizable.Pane
 			defaultSize={defaultLayout[0]}
@@ -82,7 +66,7 @@
 		</Resizable.Pane>
 		<Resizable.Handle withHandle />
 		<Resizable.Pane defaultSize={defaultLayout[1]} minSize={30}>
-			<Tabs.Root value="all" class="flex h-full flex-col">
+			<Tabs.Root value="all" class="flex flex-col h-full">
 				<div class="flex items-center px-4 py-2">
 					<h1 class="text-xl font-bold">Inbox</h1>
 					<Tabs.List class="ml-auto">
@@ -100,7 +84,7 @@
 				>
 					<form>
 						<div class="relative">
-							<Search class="absolute left-2 top-3 h-4 w-4 text-muted-foreground" />
+							<Search class="absolute w-4 h-4 left-2 top-3 text-muted-foreground" />
 							<Input placeholder="Search" class="pl-8" />
 						</div>
 					</form>

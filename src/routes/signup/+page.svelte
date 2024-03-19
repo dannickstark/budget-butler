@@ -19,12 +19,16 @@
 		if (data.session) {
 			$session = data.session;
 			goto('/app');
-		} else {
-			goto('/signup');
 		}
 	});
 </script>
 
 <div class={centeredFull}>
-	
+	<div class="flex flex-col space-y-5">
+		<div class="flex flex-col items-center">
+			<Logo></Logo>
+			<span class="text-xl font-bold">Budget Butler</span>
+		</div>
+		<SignupCard></SignupCard>
+	</div>
 </div>
