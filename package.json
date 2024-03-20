@@ -56,7 +56,7 @@
 		"@tauri-apps/plugin-sql": "2.0.0-beta.2",
 		"bits-ui": "^0.19.3",
 		"clsx": "^2.1.0",
-		"drizzle-orm": "^0.30.2",
+		"drizzle-orm": "^0.29.3",
 		"js-cookie": "^3.0.5",
 		"lucide-svelte": "^0.344.0",
 		"paneforge": "^0.0.2",

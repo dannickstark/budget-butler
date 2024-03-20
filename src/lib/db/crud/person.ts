@@ -3,7 +3,7 @@ import * as schema from '$lib/db/schema';
 
 export async function getUsers() {
     let users = await db.query.users.findMany();
-    console.log('🚀 ~ FindMany response from Drizzle:', users);
+    return users
 }
 
 export async function createUser() {
