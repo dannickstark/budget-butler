@@ -12,6 +12,7 @@
 	import * as Tabs from "@/components/ui/tabs";
 	import Search from "lucide-svelte/icons/search";
 	import type { Account, Mail } from "$utils/data";
+	import Cookies from 'js-cookie'
 
 	export let accounts: Account[];
 	export let mails: Mail[];
@@ -22,17 +23,17 @@
 	let isCollapsed = defaultCollapsed;
 
 	function onLayoutChange(sizes: number[]) {
-		document.cookie = `PaneForge:layout=${JSON.stringify(sizes)}`;
+		Cookies.set('PaneForge:layout', sizes.join(','))
 	}
 
 	function onCollapse() {
 		isCollapsed = true;
-		document.cookie = `PaneForge:collapsed=${true}`;
+		Cookies.set('PaneForge:collapsed', 'true')
 	}
 
 	function onExpand() {
 		isCollapsed = false;
-		document.cookie = `PaneForge:collapsed=${false}`;
+		Cookies.set('PaneForge:collapsed', 'false')
 	}
 </script>
 

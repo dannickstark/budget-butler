@@ -10,19 +10,19 @@
 	import { fullElement } from '@/utils/tailwindGroups.js';
 	import { onMount } from 'svelte';
 	import { twMerge } from 'tailwind-merge';
+	import { invalidate } from '$app/navigation';
 
 	let centeredFull = twMerge(fullElement, 'flex flex-row items-center justify-center');
 
-	onMount(async () => {
-		let { data } = await supabase.auth.getSession();
-
-		if (data.session) {
-			$session = data.session;
+	onMount(() => {
+		if ($session) {
 			goto('/app');
 		} else {
 			goto('/signup');
 		}
 	});
+
+
 </script>
 
 <div class={centeredFull}>

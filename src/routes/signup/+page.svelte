@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { session } from '$stores/auth.js';
-	import { supabase } from '@/auth/supabaseClient.js';
 
 	export let data;
 
@@ -14,10 +13,7 @@
 	let centeredFull = twMerge(fullElement, 'flex flex-row items-center justify-center');
 
 	onMount(async () => {
-		let { data } = await supabase.auth.getSession();
-
-		if (data.session) {
-			$session = data.session;
+		if ($session) {
 			goto('/app');
 		}
 	});

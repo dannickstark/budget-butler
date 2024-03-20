@@ -1,17 +1,15 @@
 
 import type { LayoutLoad } from '../$types';
+import Cookies from 'js-cookie'
 
 export const load: LayoutLoad = async ({}) => {
-    // TODO : Read from cookies
-	//const layoutCookie = cookies.get("PaneForge:layout");
-	//const collapsedCookie = cookies.get("PaneForge:collapsed");
-	const layoutCookie = "[]";
-	const collapsedCookie = "true";
+	const layoutCookie = Cookies.get("PaneForge:layout");
+	const collapsedCookie = Cookies.get("PaneForge:collapsed");
 
 	let layout: number[] | undefined = undefined;
 	let collapsed: boolean | undefined = undefined;
 
-	layoutCookie && (layout = JSON.parse(layoutCookie));
+	layoutCookie && (layout = layoutCookie.split(',').map(i => parseFloat(i)));
 	collapsedCookie && (collapsed = JSON.parse(collapsedCookie));
 
 	return { layout, collapsed };

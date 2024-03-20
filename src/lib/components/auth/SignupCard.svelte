@@ -33,7 +33,6 @@
 					return;
 				}
 
-				invoke('oauth_cancel', { port });
 				port = undefined;
 				redirect(303, '/');
 			});
@@ -71,6 +70,7 @@
 
 		return () => {
 			unlisten?.then((u) => u());
+			invoke('oauth_cancel', { port });
 		};
 	});
 </script>

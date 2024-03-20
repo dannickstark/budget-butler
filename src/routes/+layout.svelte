@@ -8,29 +8,38 @@
 	import { Toaster } from 'svelte-french-toast';
 	import { invalidate } from '$app/navigation';
 	import { supabase } from '@/auth/supabaseClient';
+	import { session } from '$stores/auth';
 
-	onMount(() => {
-		migrate().then(() => {
-			supabase.auth.getSession().then((res) => {
-				let {
-					data: { session }
-				} = res;
+	let hasMounted = false;
 
-				const { data } = supabase.auth.onAuthStateChange((event, _session) => {
-					if (_session?.expires_at !== session?.expires_at) {
-						invalidate('supabase:auth');
-					}
-				});
+	onMount(async () => {
+		await migrate();
+
+		let {
+			data: { session: resSession }
+		} = await supabase.auth.getSession();
+
+		if (resSession) {
+			$session = resSession;
+
+			const { data } = supabase.auth.onAuthStateChange((event, _session) => {
+				if (_session?.expires_at !== resSession?.expires_at) {
+					invalidate('supabase:auth');
+				}
 			});
-		});
+		}
 
-		return () => {
-			//data.subscription.unsubscribe()
-		};
+		hasMounted = true;
+
+		/* return () => {
+			data.subscription.unsubscribe()
+		}; */
 	});
 </script>
 
 <div class={fullWindow}>
 	<Toaster containerClassName="flex flex-col flex-reverse" position="bottom-center" />
-	<slot />
+	{#if hasMounted}
+		<slot />
+	{/if}
 </div>
