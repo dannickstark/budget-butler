@@ -6,7 +6,7 @@ authors = ["you"]
 license = ""
 repository = ""
 edition = "2021"
-rust-version = "1.70"
+rust-version = "1.75"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
@@ -29,6 +29,7 @@ tauri-plugin-shell = "2.0.0-beta"
 log = "0.4.21"
 httparse = "1.8.0"
 url = "2.5.0"
+tauri-plugin-window-state = "2.0.0-beta"
 
 [dependencies.tauri-plugin-sql]
 features = ["sqlite"] # or "postgres", or "mysql"

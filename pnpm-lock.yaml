@@ -23,6 +23,9 @@ dependencies:
   '@tauri-apps/plugin-sql':
     specifier: 2.0.0-beta.2
     version: 2.0.0-beta.2
+  '@tauri-apps/plugin-window-state':
+    specifier: 2.0.0-beta.2
+    version: 2.0.0-beta.2
   bits-ui:
     specifier: ^0.19.3
     version: 0.19.3(svelte@5.0.0-next.70)
@@ -1148,6 +1151,12 @@ packages:
 
   /@tauri-apps/plugin-sql@2.0.0-beta.2:
     resolution: {integrity: sha512-gNX/4VjGl0TD4Ct58ar4bLF82iRp2L5sS79FmtzKlXYj7tVbkxenIi+mGIBz3Ut1JQP5WNL4/5wq74bkDlBggA==}
+    dependencies:
+      '@tauri-apps/api': 2.0.0-beta.4
+    dev: false
+
+  /@tauri-apps/plugin-window-state@2.0.0-beta.2:
+    resolution: {integrity: sha512-OFVFMcmwu3JdosFwtUpeBTuQu2d8fBw9+Ok8ClMYBDNWPB7vMdl3hB/qhprMnA18KmDghMAbCEKVRYglrAsczg==}
     dependencies:
       '@tauri-apps/api': 2.0.0-beta.4
     dev: false
