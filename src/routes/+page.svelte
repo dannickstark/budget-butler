@@ -1,30 +1,45 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
-	import { session } from '$stores/auth.js';
-	import { supabase } from '@/auth/supabaseClient.js';
-
 	export let data;
 
-	import Logo from '@/components/Logo.svelte';
-	import SignupCard from '@/components/auth/SignupCard.svelte';
-	import { fullElement } from '@/utils/tailwindGroups.js';
+	import '$lib/styles/app.css';
+	import { migrate } from '$lib/db/migrate';
 	import { onMount } from 'svelte';
-	import { twMerge } from 'tailwind-merge';
-	import { invalidate } from '$app/navigation';
+	import { fullWindow } from '$lib/utils/tailwindGroups';
+	import { Toaster } from 'svelte-french-toast';
+	import SplashScreen from '@/components/SplashScreen.svelte';
+	import { goto } from '$app/navigation';
+	import { session } from '$stores/auth.js';
+	import { redirectUI } from '@/utils/routing.js';
 
-	let centeredFull = twMerge(fullElement, 'flex flex-row items-center justify-center');
+	let hasMounted = false;
+	let timeOut = undefined;
+	let splashDelay = 3000;
+	let splashDelayPassed = false;
 
-	onMount(() => {
-		if ($session) {
-			goto('/app');
-		} else {
-			goto('/signup');
+	$: if (hasMounted && splashDelayPassed) {
+		redirectUI("/", $session, data.introShowed)
+	}
+
+	onMount(async () => {
+		timeOut = setTimeout(() => {
+			splashDelayPassed = true;
+		}, splashDelay);
+
+		try {
+			await migrate();
+
+			hasMounted = true;
+		} catch (error) {
+			console.log('---- Migration error : ', error);
 		}
+
+		/* return () => {
+			data.subscription.unsubscribe()
+		}; */
 	});
-
-
 </script>
 
-<div class={centeredFull}>
-	
+<div class={fullWindow}>
+	<Toaster containerClassName="flex flex-col flex-reverse" position="bottom-center" />
+	<SplashScreen></SplashScreen>
 </div>

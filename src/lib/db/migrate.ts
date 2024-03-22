@@ -1,16 +1,16 @@
 import { readDir, readTextFile, BaseDirectory } from '@tauri-apps/plugin-fs';
 import { resourceDir } from '@tauri-apps/api/path';
-import { sqlite } from './database';
+import { getSqlite } from './database';
 
 export type ProxyMigrator = (migrationQueries: string[]) => Promise<void>;
 
 /**
  * Executes database migrations.
  *
- * @param db The database instance.
  * @returns A promise that resolves when the migrations are complete.
  */
 export async function migrate() {
+    const sqlite = await getSqlite()
 	const resourcePath = await resourceDir();
 
 	const files = await readDir('migrations', { baseDir: BaseDirectory.Resource });

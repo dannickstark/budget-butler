@@ -24,7 +24,6 @@ tauri = { version = "2.0.0-beta.8", features = [] }
 tokio = { version = "1.36.0", features = ["macros", "rt-multi-thread"] }
 anyhow = "1.0.80"
 tauri-plugin-fs = "2.0.0-beta.2"
-tauri-plugin-oauth = { git = "https://github.com/FabianLars/tauri-plugin-oauth", branch = "v2" }
 tauri-plugin-shell = "2.0.0-beta"
 log = "0.4.21"
 httparse = "1.8.0"

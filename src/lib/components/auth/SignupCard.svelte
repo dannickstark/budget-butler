@@ -9,16 +9,19 @@
 	import { handleSignIn, onProviderSignIn } from '@/auth/login';
 	import { listen } from '@tauri-apps/api/event';
 	import { supabase } from '@/auth/supabaseClient';
-	import { onMount } from 'svelte';
+	import { createEventDispatcher, onMount } from 'svelte';
 	import { invoke } from '@tauri-apps/api/core';
 	import type { ProviderType } from '@/auth/types';
 	import { redirect } from '@sveltejs/kit';
+	import { goto } from '$app/navigation';
 
+	const dispatch = createEventDispatcher();
+	
 	let loading = false;
 	let email: string | undefined = undefined;
 	let port: number | undefined = undefined;
 
-	const unlisten = listen('oauth://url', (data) => {
+	const unlisten = listen('oauth://url', async (data) => {
 		if (!data.payload) return;
 
 		const url = new URL(data.payload as string);
@@ -26,18 +29,30 @@
 
 		console.log('here', data.payload, code);
 		if (code) {
-			supabase.auth.exchangeCodeForSession(code).then(({ data, error }) => {
-				if (error) {
-					alert(error.message);
-					console.error(error);
-					return;
-				}
-
-				port = undefined;
-				redirect(303, '/');
-			});
+			getSession(code);
 		}
 	});
+
+	async function getSession(code: string) {
+		let { data, error } = await supabase.auth.exchangeCodeForSession(code);
+		if (error) {
+			console.error('exchangeCodeForSession : ', error);
+			return;
+		}
+
+		toast.success('Successful identification');
+
+		console.log('exchangeCodeForSession : ', data);
+		// TODO : register user in local db (if not already)
+		port = undefined;
+
+		try {
+			console.log('redirecting ...');
+			dispatch('redirect', {path: '/app'});
+		} catch (err) {
+			console.error('goto error : ', err);
+		}
+	}
 
 	async function submitSignup() {
 		if (email && port != undefined) {
@@ -70,7 +85,7 @@
 
 		return () => {
 			unlisten?.then((u) => u());
-			invoke('oauth_cancel', { port });
+			//invoke('oauth_cancel', { port });
 		};
 	});
 </script>

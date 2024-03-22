@@ -1,22 +1,25 @@
 <script lang="ts">
+	export let data;
 	import { goto } from '$app/navigation';
 	import { session } from '$stores/auth.js';
-
-	export let data;
 
 	import Logo from '@/components/Logo.svelte';
 	import SignupCard from '@/components/auth/SignupCard.svelte';
 	import { fullElement } from '@/utils/tailwindGroups.js';
-	import { onMount } from 'svelte';
 	import { twMerge } from 'tailwind-merge';
 
 	let centeredFull = twMerge(fullElement, 'flex flex-row items-center justify-center');
 
-	onMount(async () => {
-		if ($session) {
-			goto('/app');
+	$: if ($session) {
+		goto('/app');
+	}
+
+	function redirectPage(event: { detail: { path: any; }; }){
+		let path = event.detail.path
+		if(path){
+			goto(path)
 		}
-	});
+	}
 </script>
 
 <div class={centeredFull}>
@@ -25,6 +28,6 @@
 			<Logo></Logo>
 			<span class="text-xl font-bold">Budget Butler</span>
 		</div>
-		<SignupCard></SignupCard>
+		<SignupCard on:redirect={redirectPage}></SignupCard>
 	</div>
 </div>

@@ -59,6 +59,8 @@
 		"bits-ui": "^0.19.3",
 		"clsx": "^2.1.0",
 		"drizzle-orm": "^0.29.3",
+		"embla-carousel-autoplay": "^8.0.0",
+		"embla-carousel-svelte": "^8.0.0",
 		"js-cookie": "^3.0.5",
 		"lucide-svelte": "^0.344.0",
 		"mode-watcher": "^0.3.0",

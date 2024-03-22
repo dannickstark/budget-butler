@@ -1,20 +1,21 @@
 <script lang="ts">
 	export let data;
 
-	import { redirect } from '@sveltejs/kit';
 	import { onMount } from 'svelte';
 	import { session } from '$stores/auth.js';
 	import { primaryRoutes, secondaryRoutes } from '$utils/config';
 	import { cn } from '@/utils';
 	import * as Resizable from '@/components/ui/resizable';
 	import { Separator } from '@/components/ui/select';
-	import type { Account, Mail } from '$utils/data';
 	import Cookies from 'js-cookie';
 	import AccountSwitcher from '@/components/custums/account-switcher.svelte';
 	import Nav from '@/components/custums/nav.svelte';
-	import { accounts, mails } from '$utils/data';
+	import { accounts } from '$utils/data';
+	import { redirectUI } from '@/utils/routing.js';
+	import { supabase } from '@/auth/supabaseClient.js';
 
-	let navCollapsedSize: 4;
+	let navCollapsedSize: number = 4;
+	let mounted: boolean = false;
 
 	$: isCollapsed = data.collapsed ?? false;
 	$: layout = data.layout ?? [265, 440, 655];
@@ -26,6 +27,7 @@
 	function onCollapse() {
 		isCollapsed = true;
 		Cookies.set('PaneForge:collapsed', 'true');
+		console.log('---------- onCollapse');
 	}
 
 	function onExpand() {
@@ -33,10 +35,17 @@
 		Cookies.set('PaneForge:collapsed', 'false');
 	}
 
-	onMount(() => {
+	onMount(async () => {
 		if ($session == undefined) {
-			redirect(303, '/');
+			let {
+				data: { session: resSession }
+			} = await supabase.auth.getSession();
+			resSession && ($session = resSession);
 		}
+
+		redirectUI('/app', $session, data.introShowed);
+		console.log('layout loaded : app : ', data);
+		mounted = true;
 	});
 </script>
 

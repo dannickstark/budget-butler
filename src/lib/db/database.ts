@@ -12,13 +12,18 @@ export type SelectQueryResult = {
 /**
  * Loads the sqlite database via the Tauri Proxy.
  */
-export const sqlite = await Database.load("sqlite:sqlite.db");
+export async function getSqlite(){
+  const sqlite = await Database.load("sqlite:sqlite.db");
+  return sqlite
+}
 
 /**
  * The drizzle database instance.
  */
 export const db = drizzle<typeof schema>(
   async (sql, params, method) => {
+    const sqlite = await getSqlite()
+    
     let rows: any = [];
     let results = [];
 
