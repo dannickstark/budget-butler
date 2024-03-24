@@ -1,16 +1,10 @@
-import type { SubmitFunction } from "@sveltejs/kit";
+import type { SubmitFunction } from '@sveltejs/kit';
 
 //==============================================[ Enhencement ]==============================================
-type SuccessData<T> = T extends Record<string, unknown>
-	? T extends { invalid: boolean }
-		? never
-		: T
-	: never;
-type InvalidData<T> = T extends Record<string, unknown>
-	? T extends { invalid: boolean }
-		? T
-		: never
-	: never;
+type SuccessData<T> =
+	T extends Record<string, unknown> ? (T extends { invalid: boolean } ? never : T) : never;
+type InvalidData<T> =
+	T extends Record<string, unknown> ? (T extends { invalid: boolean } ? T : never) : never;
 export type TypedSubmitFunction<T> = SubmitFunction<SuccessData<T>, InvalidData<T>>;
 
 export type ResponseData = {
@@ -18,4 +12,11 @@ export type ResponseData = {
 	message: string;
 	info: { [k: string]: any };
 	errors?: Object;
+};
+
+//==============================================[ User ]==============================================
+export type User = {
+	name: string;
+	email: string;
+	avatar: string | undefined;
 };

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import AccountSwitcher from "./account-switcher.svelte";
-	import { primaryRoutes, secondaryRoutes } from "$utils/config";
+	import { primaryRoutes, secondaryRoutes } from "@/utils/routes";
 	import MailDisplay from "./mail-display.svelte";
 	import MailList from "./mail-list.svelte";
 	import Nav from "./nav.svelte";

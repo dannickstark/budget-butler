@@ -3,19 +3,26 @@
 
 	import { onMount } from 'svelte';
 	import { session } from '$stores/auth.js';
-	import { primaryRoutes, secondaryRoutes } from '$utils/config';
+	import { primaryRoutes, secondaryRoutes, servicesRoutes } from '@/utils/routes.js';
 	import { cn } from '@/utils';
 	import * as Resizable from '@/components/ui/resizable';
 	import { Separator } from '@/components/ui/select';
 	import Cookies from 'js-cookie';
-	import AccountSwitcher from '@/components/custums/account-switcher.svelte';
 	import Nav from '@/components/custums/nav.svelte';
-	import { accounts } from '$utils/data';
 	import { redirectUI } from '@/utils/routing.js';
 	import { supabase } from '@/auth/supabaseClient.js';
+	import Button from '@/components/ui/button/button.svelte';
+	import type { User } from '@/utils/types.js';
+	import Account from '@/components/custums/Account.svelte';
 
 	let navCollapsedSize: number = 4;
 	let mounted: boolean = false;
+
+	let user: User = {
+		name: 'Olivia Martin',
+		email: 'm@example.com',
+		avatar: undefined
+	};
 
 	$: isCollapsed = data.collapsed ?? false;
 	$: layout = data.layout ?? [265, 440, 655];
@@ -27,7 +34,6 @@
 	function onCollapse() {
 		isCollapsed = true;
 		Cookies.set('PaneForge:collapsed', 'true');
-		console.log('---------- onCollapse');
 	}
 
 	function onExpand() {
@@ -60,15 +66,26 @@
 			{onCollapse}
 			{onExpand}
 		>
-			<div
-				class={cn('flex h-[52px] items-center justify-center', isCollapsed ? 'h-[52px]' : 'px-2')}
-			>
-				<AccountSwitcher {isCollapsed} {accounts} />
+			<div class="flex flex-col justify-between h-full">
+				<div class="flex flex-col">
+					<div
+						class={cn(
+							'flex h-[52px] items-center',
+							isCollapsed ? 'h-[52px] justify-center' : 'px-2'
+						)}
+					>
+						<Account {isCollapsed} {user} />
+					</div>
+					<Separator />
+					<Nav {isCollapsed} routes={primaryRoutes} />
+					<Separator />
+					<Nav {isCollapsed} routes={secondaryRoutes} />
+				</div>
+
+				<div class="flex flex-col">
+					<Nav {isCollapsed} routes={servicesRoutes} />
+				</div>
 			</div>
-			<Separator />
-			<Nav {isCollapsed} routes={primaryRoutes} />
-			<Separator />
-			<Nav {isCollapsed} routes={secondaryRoutes} />
 		</Resizable.Pane>
 		<Resizable.Handle withHandle />
 		<slot />

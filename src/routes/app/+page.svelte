@@ -19,7 +19,7 @@
 <Resizable.Pane defaultSize={layout[1]} minSize={30}>
 	<Tabs.Root value="all" class="flex flex-col h-full">
 		<div class="flex items-center px-4 py-2">
-			<h1 class="text-xl font-bold">Inbox</h1>
+			<h1 class="text-xl font-bold">Dashboard</h1>
 			<Tabs.List class="ml-auto">
 				<Tabs.Trigger value="all" class="text-zinc-600 dark:text-zinc-200">
 					All mail
@@ -49,6 +49,6 @@
 	</Tabs.Root>
 </Resizable.Pane>
 <Resizable.Handle withHandle />
-<Resizable.Pane defaultSize={layout[2]}>
+<Resizable.Pane defaultSize={layout[2]} minSize={30}>
 	<MailDisplay mail={mails.find((item) => item.id === $mailStore.selected) || null} />
 </Resizable.Pane>

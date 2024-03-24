@@ -2,7 +2,7 @@ export const prerender = true;
 export const ssr = false;
 
 import type { LayoutLoad } from './$types';
-import { getIntroShowed } from '@/utils/cookies';
+import { getIntroShowed } from '@/utils/cookies-localst';
 
 export const load: LayoutLoad = async ({}) => {
 	let introShowed = getIntroShowed()

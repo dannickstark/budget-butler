@@ -1,4 +1,4 @@
-import { getIntroShowed } from '@/utils/cookies';
+import { getIntroShowed } from '@/utils/cookies-localst';
 import type { LayoutLoad } from '../$types';
 import Cookies from 'js-cookie';
 

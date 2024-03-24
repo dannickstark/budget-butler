@@ -10,7 +10,6 @@
 	import { MoveRight } from 'lucide-svelte';
 	import Autoplay from 'embla-carousel-autoplay';
 	import { presentations } from '$lib/datas/introduction';
-	import Cookies from 'js-cookie';
 	import { goto } from '$app/navigation';
 	import { onMount } from 'svelte';
 	import { redirectUI } from '@/utils/routing';
@@ -34,7 +33,7 @@
 	}
 
 	function goToNext() {
-		Cookies.set('introduction:showed', 'true');
+		localStorage.setItem('introduction:showed', 'true');
 		goto('/app');
 	}
 

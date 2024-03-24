@@ -1,11 +1,15 @@
 <script lang="ts">
-	import { Button } from "@/components/ui/button";
-	import { cn } from "$lib/utils";
-	import * as Tooltip from "@/components/ui/tooltip";
-	import type { Route } from "$utils/config";
+	import { Button } from '@/components/ui/button';
+	import { cn } from '$lib/utils';
+	import * as Tooltip from '@/components/ui/tooltip';
+	import type { Route } from '@/utils/routes';
+	import { page } from '$app/stores';
 
 	export let isCollapsed: boolean;
 	export let routes: Route[];
+
+	let basePath = '/app';
+	$: currentPage = $page.url.pathname;
 </script>
 
 <div data-collapsed={isCollapsed} class="group flex flex-col gap-4 py-2 data-[collapsed=true]:py-2">
@@ -13,18 +17,19 @@
 		class="grid gap-1 px-2 group-[[data-collapsed=true]]:justify-center group-[[data-collapsed=true]]:px-2"
 	>
 		{#each routes as route}
+			{@const path = `${basePath}${route.path}`}
 			{#if isCollapsed}
 				<Tooltip.Root openDelay={0}>
 					<Tooltip.Trigger asChild let:builder>
 						<Button
-							href="#"
+							href={path}
 							builders={[builder]}
-							variant={route.variant}
+							variant={path == currentPage ? 'default' : 'ghost'}
 							size="icon"
 							class={cn(
-								"size-9",
-								route.variant === "default" &&
-									"dark:bg-muted dark:text-muted-foreground dark:hover:bg-muted dark:hover:text-white"
+								'size-9',
+								route.variant === 'default' &&
+									'dark:bg-muted dark:text-muted-foreground dark:hover:bg-muted dark:hover:text-white'
 							)}
 						>
 							<svelte:component this={route.icon} class="size-4" aria-hidden="true" />
@@ -42,20 +47,20 @@
 				</Tooltip.Root>
 			{:else}
 				<Button
-					href="#"
-					variant={route.variant}
+					href={path}
+					variant={path == currentPage ? 'default' : 'ghost'}
 					size="sm"
-					class={cn("justify-start", {
-						"dark:bg-muted dark:text-white dark:hover:bg-muted dark:hover:text-white":
-							route.variant === "default",
+					class={cn('justify-start', {
+						'dark:bg-muted dark:text-white dark:hover:bg-muted dark:hover:text-white':
+							route.variant === 'default'
 					})}
 				>
 					<svelte:component this={route.icon} class="mr-2 size-4" aria-hidden="true" />
 					{route.title}
 					{#if route.label}
 						<span
-							class={cn("ml-auto", {
-								"text-background dark:text-white": route.variant === "default",
+							class={cn('ml-auto', {
+								'text-background dark:text-white': route.variant === 'default'
 							})}
 						>
 							{route.label}
