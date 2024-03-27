@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Logo from '@/components/Logo.svelte';
+	import Logo from '@/components/custums/Logo.svelte';
 	import { fullElement } from '@/utils/tailwindGroups.js';
 	import { twMerge } from 'tailwind-merge';
 	import Reload from 'svelte-radix/Reload.svelte';

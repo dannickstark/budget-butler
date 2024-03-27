@@ -1,5 +1,3 @@
-import * as Icons from "./icons.js";
-
 import type { ComponentType } from "svelte";
 import { Cog, Search, type Icon, AreaChart, Bot, LayoutDashboard, WalletCards, ArrowRightLeft, HandCoins, PiggyBank } from "lucide-svelte";
 

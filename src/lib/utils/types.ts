@@ -13,10 +13,3 @@ export type ResponseData = {
 	info: { [k: string]: any };
 	errors?: Object;
 };
-
-//==============================================[ User ]==============================================
-export type User = {
-	name: string;
-	email: string;
-	avatar: string | undefined;
-};

@@ -42,13 +42,13 @@
 		</div>
 		<Separator class="my-6" />
 		<div class="flex flex-col flex-1 space-y-8 lg:flex-row lg:space-x-12 lg:space-y-0">
-			<aside class="-mx-4 lg:w-1/5">
+			<aside class="lg:w-1/5">
 				<SidebarNav items={sidebarNavItems} />
 			</aside>
 			<div class="relative flex-1 w-full lg:h-full">
-				<ScrollArea class="absolute w-full h-full border rounded-md" orientation="vertical">
+				<div class="absolute w-full h-full p-4 overflow-hidden overflow-y-auto border rounded-md">
 					<slot />
-				</ScrollArea>
+				</div>
 			</div>
 		</div>
 	</div>

@@ -23,7 +23,6 @@
 			});
 		}
 
-		console.log('layout loaded : main : ', $session);
 		mounted = true;
 	});
 </script>

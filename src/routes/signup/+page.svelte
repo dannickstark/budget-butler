@@ -1,9 +1,10 @@
 <script lang="ts">
 	export let data;
+
 	import { goto } from '$app/navigation';
 	import { session } from '$stores/auth.js';
 
-	import Logo from '@/components/Logo.svelte';
+	import Logo from '@/components/custums/Logo.svelte';
 	import SignupCard from '@/components/auth/SignupCard.svelte';
 	import { fullElement } from '@/utils/tailwindGroups.js';
 	import { twMerge } from 'tailwind-merge';
@@ -28,6 +29,6 @@
 			<Logo></Logo>
 			<span class="text-xl font-bold">Budget Butler</span>
 		</div>
-		<SignupCard on:redirect={redirectPage}></SignupCard>
+		<SignupCard data={data.form} on:redirect={redirectPage}></SignupCard>
 	</div>
 </div>

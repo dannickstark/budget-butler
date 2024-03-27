@@ -10,6 +10,8 @@ export type ProxyMigrator = (migrationQueries: string[]) => Promise<void>;
  * @returns A promise that resolves when the migrations are complete.
  */
 export async function migrate() {
+	console.info('Starting migration');
+
     const sqlite = await getSqlite()
 	const resourcePath = await resourceDir();
 
@@ -60,6 +62,9 @@ export async function migrate() {
 				/*sql*/ `INSERT INTO "__drizzle_migrations" (hash, created_at) VALUES ($1, $2)`,
 				[hash, Date.now()]
 			);
+			console.info(`Migration ${hash} was executed!`);
+		} else {
+			console.info(`Migration ${hash} was already executed!`);
 		}
 	}
 

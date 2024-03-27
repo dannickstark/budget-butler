@@ -1,4 +1,3 @@
-import { invalidate } from '$app/navigation';
 import { createClient } from '@supabase/supabase-js';
 
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
@@ -18,8 +17,6 @@ export async function getSession() {
 	let {
 		data: { session: resSession }
 	} = await supabase.auth.getSession();
-
-  console.log("---------- resSession", resSession);
 
 	if (resSession) {
 		return Promise.resolve(resSession);

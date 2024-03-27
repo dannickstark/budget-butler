@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { getLocalTimeZone, DateFormatter, now, getDayOfWeek } from "@internationalized/date";
 
-	import * as Icons from "$utils/icons";
 	import * as Avatar from "@/components/ui/avatar";
 	import { Button, buttonVariants } from "@/components/ui/button";
 	import { Calendar } from "@/components/ui/calendar";
@@ -13,6 +12,7 @@
 	import { Textarea } from "@/components/ui/textarea";
 	import * as Tooltip from "@/components/ui/tooltip";
 	import type { Mail } from "$utils/data";
+	import { Archive, ArchiveX, Clock, Forward, MoreVertical, Reply, ReplyAll, Trash2 } from "lucide-svelte";
 
 	export let mail: Mail | null = null;
 
@@ -38,8 +38,8 @@
 	}
 </script>
 
-<div class="flex h-full flex-col">
-	<div class="mb-1 flex items-center p-2">
+<div class="flex flex-col h-full">
+	<div class="flex items-center p-2 mb-1">
 		<div class="flex items-center gap-2">
 			<Tooltip.Root openDelay={0} group>
 				<Tooltip.Trigger
@@ -47,7 +47,7 @@
 					class={buttonVariants({ variant: "ghost", size: "icon" })}
 					disabled={!mail}
 				>
-					<Icons.Archive class="size-4" />
+					<Archive class="size-4" />
 					<span class="sr-only">Archive</span>
 				</Tooltip.Trigger>
 				<Tooltip.Content>Archive</Tooltip.Content>
@@ -58,7 +58,7 @@
 					class={buttonVariants({ variant: "ghost", size: "icon" })}
 					disabled={!mail}
 				>
-					<Icons.ArchiveX class="size-4" />
+					<ArchiveX class="size-4" />
 					<span class="sr-only">Move to junk</span>
 				</Tooltip.Trigger>
 				<Tooltip.Content>Move to junk</Tooltip.Content>
@@ -69,12 +69,12 @@
 					class={buttonVariants({ variant: "ghost", size: "icon" })}
 					disabled={!mail}
 				>
-					<Icons.Trash2 class="size-4" />
+					<Trash2 class="size-4" />
 					<span class="sr-only">Move to trash</span>
 				</Tooltip.Trigger>
 				<Tooltip.Content>Move to trash</Tooltip.Content>
 			</Tooltip.Root>
-			<Separator orientation="vertical" class="mx-1 h-6" />
+			<Separator orientation="vertical" class="h-6 mx-1" />
 			<Tooltip.Root openDelay={0} group>
 				<Popover.Root portal={null}>
 					<Tooltip.Trigger asChild let:builder={tooltip_builder} id="snooze_popover">
@@ -85,13 +85,13 @@
 								size="icon"
 								disabled={!mail}
 							>
-								<Icons.Clock class="size-4" />
+								<Clock class="size-4" />
 								<span class="sr-only">Snooze</span>
 							</Button>
 						</Popover.Trigger>
 					</Tooltip.Trigger>
 					<Popover.Content class="flex w-[535px] p-0">
-						<div class="flex flex-col gap-2 border-r px-2 py-4">
+						<div class="flex flex-col gap-2 px-2 py-4 border-r">
 							<div class="px-4 text-sm font-medium">Snooze until</div>
 							<div class="grid min-w-[250px] gap-1">
 								<Button variant="ghost" class="justify-start font-normal">
@@ -134,14 +134,14 @@
 				<Tooltip.Content>Snooze</Tooltip.Content>
 			</Tooltip.Root>
 		</div>
-		<div class="ml-auto flex items-center gap-2">
+		<div class="flex items-center gap-2 ml-auto">
 			<Tooltip.Root openDelay={0} group>
 				<Tooltip.Trigger
 					id="reply_tooltip"
 					class={buttonVariants({ variant: "ghost", size: "icon" })}
 					disabled={!mail}
 				>
-					<Icons.Reply class="size-4" />
+					<Reply class="size-4" />
 					<span class="sr-only">Reply</span>
 				</Tooltip.Trigger>
 				<Tooltip.Content>Reply</Tooltip.Content>
@@ -152,7 +152,7 @@
 					class={buttonVariants({ variant: "ghost", size: "icon" })}
 					disabled={!mail}
 				>
-					<Icons.ReplyAll class="size-4" />
+					<ReplyAll class="size-4" />
 					<span class="sr-only">Reply all</span>
 				</Tooltip.Trigger>
 				<Tooltip.Content>Reply all</Tooltip.Content>
@@ -163,20 +163,20 @@
 					class={buttonVariants({ variant: "ghost", size: "icon" })}
 					disabled={!mail}
 				>
-					<Icons.Forward class="size-4" />
+					<Forward class="size-4" />
 					<span class="sr-only">Forward</span>
 				</Tooltip.Trigger>
 				<Tooltip.Content>Forward</Tooltip.Content>
 			</Tooltip.Root>
 		</div>
-		<Separator orientation="vertical" class="mx-2 h-6" />
+		<Separator orientation="vertical" class="h-6 mx-2" />
 		<DropdownMenu.Root>
 			<DropdownMenu.Trigger
 				id="more_options_dropdown"
 				class={buttonVariants({ variant: "ghost", size: "icon" })}
 				disabled={!mail}
 			>
-				<Icons.MoreVertical class="size-4" />
+				<MoreVertical class="size-4" />
 				<span class="sr-only">More</span>
 			</DropdownMenu.Trigger>
 			<DropdownMenu.Content align="end">
@@ -189,7 +189,7 @@
 	</div>
 	<Separator />
 	{#if mail}
-		<div class="flex h-full flex-1 flex-col overflow-hidden">
+		<div class="flex flex-col flex-1 h-full overflow-hidden">
 			<div class="flex items-start p-4">
 				<div class="flex items-start gap-4 text-sm">
 					<Avatar.Root>
@@ -203,8 +203,8 @@
 					</Avatar.Root>
 					<div class="grid gap-1">
 						<div class="font-semibold">{mail.name}</div>
-						<div class="line-clamp-1 text-xs">{mail.subject}</div>
-						<div class="line-clamp-1 text-xs">
+						<div class="text-xs line-clamp-1">{mail.subject}</div>
+						<div class="text-xs line-clamp-1">
 							<span class="font-medium">Reply-To:</span>
 							{mail.email}
 						</div>
@@ -217,7 +217,7 @@
 				{/if}
 			</div>
 			<Separator />
-			<div class="flex-1 overflow-y-auto whitespace-pre-wrap p-4 text-sm">
+			<div class="flex-1 p-4 overflow-y-auto text-sm whitespace-pre-wrap">
 				{mail.text}
 			</div>
 			<Separator class="mt-auto" />

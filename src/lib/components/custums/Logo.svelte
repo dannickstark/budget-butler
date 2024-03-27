@@ -9,7 +9,7 @@
 	let classes = 'w-44 w-20 w-10 rounded-3xl rounded-2xl rounded-md'
 </script>
 
-<a class="flex w-fit flex-row items-center gap-2 {rounded} {$$props.class}" {href}>
+<a class="flex w-fit flex-row items-center gap-2 shadow {rounded} {$$props.class}" {href}>
 	<img
 		src="./favicon.png"
 		class={`overflow-hidden transition-all ${

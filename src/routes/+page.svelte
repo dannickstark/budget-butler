@@ -6,7 +6,7 @@
 	import { onMount } from 'svelte';
 	import { fullWindow } from '$lib/utils/tailwindGroups';
 	import { Toaster } from 'svelte-french-toast';
-	import SplashScreen from '@/components/SplashScreen.svelte';
+	import SplashScreen from '@/components/custums/SplashScreen.svelte';
 	import { goto } from '$app/navigation';
 	import { session } from '$stores/auth.js';
 	import { redirectUI } from '@/utils/routing.js';
@@ -27,10 +27,11 @@
 
 		try {
 			await migrate();
+			console.info('Migration done!')
 
 			hasMounted = true;
 		} catch (error) {
-			console.log('---- Migration error : ', error);
+			console.error('Migration error : ', error);
 		}
 
 		/* return () => {

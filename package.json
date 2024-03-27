@@ -16,7 +16,8 @@
 		"format": "prettier --write .",
 		"test:integration": "playwright test",
 		"test:unit": "vitest",
-		"migrate": "drizzle-kit generate:sqlite"
+		"migrate": "drizzle-kit generate:sqlite && pnpm tauri:clean",
+		"tauri:clean": "cd src-tauri && cargo clean"
 	},
 	"devDependencies": {
 		"@playwright/test": "^1.28.1",
@@ -58,10 +59,11 @@
 		"@tauri-apps/plugin-shell": "2.0.0-beta.2",
 		"@tauri-apps/plugin-sql": "2.0.0-beta.2",
 		"@tauri-apps/plugin-window-state": "2.0.0-beta.2",
-		"bits-ui": "^0.19.3",
+		"bits-ui": "^0.19.7",
 		"clsx": "^2.1.0",
 		"cmdk-sv": "^0.0.15",
-		"drizzle-orm": "^0.29.3",
+		"drizzle-orm": "^0.29.4",
+		"drizzle-zod": "^0.5.1",
 		"embla-carousel-autoplay": "^8.0.0",
 		"embla-carousel-svelte": "^8.0.0",
 		"formsnap": "^0.5.1",
@@ -72,6 +74,7 @@
 		"svelte-french-toast": "^1.2.0",
 		"svelte-radix": "^1.0.3",
 		"tailwind-merge": "^2.2.1",
-		"tailwind-variants": "^0.2.0"
+		"tailwind-variants": "^0.2.0",
+		"zod-form-data": "^2.0.2"
 	}
 }
