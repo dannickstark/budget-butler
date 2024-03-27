@@ -11,7 +11,7 @@
 	import Nav from '@/components/custums/navigation/nav.svelte';
 	import { redirectUI } from '@/utils/routing.js';
 	import { supabase } from '@/auth/supabaseClient.js';
-	import Account from '@/components/custums/Account.svelte';
+	import Account from '@/components/custums/navigation/Account.svelte';
 	import { getUserByID } from '@/db/users/handler.js';
 	import toast from 'svelte-french-toast';
 	import { createNewUserFromProvider, localLogOut } from '@/auth/login-signin.js';
